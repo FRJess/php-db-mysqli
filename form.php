@@ -10,12 +10,12 @@ $sql = "SELECT * FROM `degrees`";
 $result = makeQuery($sql, $conn);
 
 if (isset($_POST['submit'])){
-  $degree_id = $_POST['degree_id'];
-  $name = $_POST['name'];
-  $surname = $_POST['surname'];
-  $fiscal_code = $_POST['fiscal_code'];
-  $registration_number = $_POST['registration_number'];
-  $email = $_POST['email'];
+  $degree_id = strip_tags($_POST['degree_id']);
+  $name = strip_tags($_POST['name']);
+  $surname = strip_tags($_POST['surname']);
+  $fiscal_code = strip_tags($_POST['fiscal_code']);
+  $registration_number = strip_tags($_POST['registration_number']);
+  $email = strip_tags($_POST['email']);
   $date_of_birth = '2002-06-26';
   $enrolment_date = '2022-01-01';
   

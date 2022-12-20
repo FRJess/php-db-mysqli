@@ -24,7 +24,7 @@ $totale_studenti = $result_global->num_rows;
 
 $sql = "SELECT `students`.`name`,`students`.`surname`,`students`.`registration_number`,`students`.`id`, ROUND(AVG(`exam_student`.`vote`),1) AS `media_voti`
 FROM `students`
-JOIN `exam_student`ON `students`.`id` = `exam_student`.`student_id`
+LEFT JOIN `exam_student`ON `students`.`id` = `exam_student`.`student_id`
 WHERE `exam_student`.`vote` >= 18
 GROUP BY `students`.`id`
 ORDER BY `students`.`surname`, `students`.`name`
@@ -67,6 +67,7 @@ closeConn($conn);
           <th scope="col">Cognome</th>
           <th scope="col">Matricola</th>
           <th scope="col">Media voti</th>
+          <th scope="col">AZIONI</th>
         </tr>
       </thead>
 
@@ -79,6 +80,7 @@ closeConn($conn);
             <td><?php echo $row->surname ?></td>
             <td><?php echo $row->registration_number ?></td>
             <td><?php echo $row->media_voti ?></td>
+            <td><a href="form.php?id=<?php echo $row->id ?>">EDIT</a></td>
           </tr>
         <?php endwhile; ?>
 
