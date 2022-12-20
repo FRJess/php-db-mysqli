@@ -9,6 +9,22 @@ $sql = "SELECT * FROM `degrees`";
 
 $result = makeQuery($sql, $conn);
 
+if (isset($_POST['submit'])){
+  $degree_id = $_POST['degree_id'];
+  $name = $_POST['name'];
+  $surname = $_POST['surname'];
+  $fiscal_code = $_POST['fiscal_code'];
+  $registration_number = $_POST['registration_number'];
+  $email = $_POST['email'];
+  $date_of_birth = '2002-06-26';
+  $enrolment_date = '2022-01-01';
+  
+  $sql = "INSERT INTO students(degree_id, name, surname, fiscal_code, registration_number, email, date_of_birth, enrolment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  $insertStmt = $conn->prepare($sql);
+  $insertStmt->bind_param('isssssss', $degree_id, $name, $surname, $fiscal_code, $registration_number, $email, $date_of_birth, $enrolment_date);
+  $insertStmt->execute();
+}
+
 closeConn($conn);
 
 ?>
@@ -24,14 +40,14 @@ closeConn($conn);
     <body>
         <div class="container my-5">
             <h1>Form</h1>
-            <form action="" method="post">
+            <form method="post">
 ​
                 <div class="mb-3">
                     <label class="form-label">Facoltà</label>
                     <select class="form-select" name="degree_id">
                       <option selected></option>
                       <?php while($row = $result->fetch_object()): ?>
-                        <option value=""><?php echo $row->name ?></option>
+                        <option value="<?php echo $row->id ?>"><?php echo $row->name ?></option>
                       <?php endwhile; ?>
                     </select>
                     
