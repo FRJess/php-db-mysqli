@@ -1,3 +1,18 @@
+<?php
+
+require_once 'env.php';
+require_once 'functions.php';
+
+$conn = conn();
+
+$sql = "SELECT * FROM `degrees`";
+
+$result = makeQuery($sql, $conn);
+
+closeConn($conn);
+
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -14,7 +29,10 @@
                 <div class="mb-3">
                     <label class="form-label">Facoltà</label>
                     <select class="form-select" name="degree_id">
-                        <option value="">Seleziona un'opzione</option>
+                      <option selected></option>
+                      <?php while($row = $result->fetch_object()): ?>
+                        <option value=""><?php echo $row->name ?></option>
+                      <?php endwhile; ?>
                     </select>
                     
                 </div>
