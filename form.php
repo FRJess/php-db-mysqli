@@ -25,6 +25,14 @@ if (isset($_POST['submit'])){
   $insertStmt->execute();
 }
 
+$id = $_GET['id'];
+$sql = "SELECT * FROM `students` WHERE `id` = ?";
+$selectStmt = $conn->prepare($sql);
+$selectStmt->bind_param('i', $id);
+$selectStmt->execute();
+$res = $selectStmt->get_result();
+$user = $res->fetch_object();
+
 closeConn($conn);
 
 ?>
@@ -47,7 +55,7 @@ closeConn($conn);
                     <select class="form-select" name="degree_id">
                       <option selected></option>
                       <?php while($row = $result->fetch_object()): ?>
-                        <option value="<?php echo $row->id ?>"><?php echo $row->name ?></option>
+                        <option value="<?php echo $row->id ?>"<?php if($user->degree_id == $row->id) echo "selected" ?>><?php echo $row->name ?></option>
                       <?php endwhile; ?>
                     </select>
                     
@@ -55,27 +63,27 @@ closeConn($conn);
 ​
                 <div class="mb-3">
                     <label class="form-label">Nome</label>
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" value="<?php echo $user->name ?>">
                 </div>
 ​
                 <div class="mb-3">
                     <label class="form-label">Cognome</label>
-                    <input type="text" name="surname" class="form-control" >
+                    <input type="text" name="surname" class="form-control" value="<?php echo $user->surname ?>" >
                 </div>
 ​
                 <div class="mb-3">
                     <label class="form-label">Codice fiscale</label>
-                    <input type="text" name="fiscal_code" class="form-control">
+                    <input type="text" name="fiscal_code" class="form-control" value="<?php echo $user->fiscal_code ?>">
                 </div>
 ​
                 <div class="mb-3">
                     <label class="form-label">Matricola</label>
-                    <input type="text" name="registration_number" class="form-control">
+                    <input type="text" name="registration_number" class="form-control" value="<?php echo $user->registration_number ?>">
                 </div>
 ​
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input type="text" name="email" class="form-control">
+                    <input type="text" name="email" class="form-control" value="<?php echo $user->email ?>">
                 </div>
 ​
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
