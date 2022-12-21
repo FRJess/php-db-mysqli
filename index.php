@@ -104,8 +104,6 @@ closeConn($conn);
       <a href="<?php baseUrl() ?>?offset=<?php echo $totale_studenti - $limit ?>" class="btn btn-success">>|</a>
     <?php endif; ?>
 
-    <!-- bottone per andare avanti di una pagina -->
-    <a href="<?php baseUrl()?>?offset=<?php echo $offset + $limit ?>" class="btn btn-success">avanti >></a>
     
   </div>
   
